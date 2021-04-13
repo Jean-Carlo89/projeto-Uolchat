@@ -1,0 +1,98 @@
+@font-face {
+    font-family:Toboto;
+    src: url(../fonts/Roboto-Regular.ttf);
+}
+
+body{
+    font-family: Toboto;
+}
+
+/*------------------------Header---------------*/
+.header{
+    display: flex;
+    width: 95%;
+    justify-content: space-between;
+    align-items: center;
+   
+    margin: 0 auto;
+}
+
+.container-header{
+    height: 80px;
+    width: 375px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    background-color: white;
+    top: 0;
+}
+
+.header img{
+    width: 75px;
+    height: 53px;
+}
+.people-icon{
+    width: 42px;
+    height: 30px;
+}
+/*--------------------------------------------Main content-------------*/
+.conversation-box{
+    height: calc(100vh-80px-106px);
+    /*background-color: red;*/
+    width: 375px;
+    margin-top:106px;
+   
+}
+
+/*---------------------------------------------Footer--------------------------*/
+.container-footer{
+    width: 375px;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    background-color: white;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05)
+}
+.footer{
+    width: 95%;
+    height: 80px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.footer input{
+    width: 145px;
+    height: 30px;
+    border: none;
+    font-family: Toboto;
+}
+
+::placeholder{
+    font-style: italic;
+    font-family: Toboto;
+    
+}
+
+.footer .paperplane{
+    width: 26px;
+    height: 26px;
+}
+
+/*------------------------------------JAvascript inserts messages*/
+
+.message{
+    width: 375px;
+    height: 40px;
+     display: flex;
+     align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 5px;
+    background-color: #DCDCDC;
+    border-radius: 2px;
+}
