@@ -1,36 +1,39 @@
 let conversation = document.querySelector('ul');
-    let message = document.querySelector('input')
+let message = document.querySelector('input')
+let log, newMessages,last;
+let userLog
 /*----------------Entrando na sala----------------*/
-let log;
 
 
 function login(){
 
-let userLog = prompt('Qual é o seu nome?')
+userLog = prompt('Qual é o seu nome?')
 const enter = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants',{name: userLog})
 
-enter.then(loginSuccess)
+enter.then(loginSuccess,userLog)
 
 enter.catch(loginError)
 
+function loginSuccess(AnswerSuccess){
+    getMessages()
+    newMessages = setInterval(getMessages,3000)
+    log = setInterval(stayLogged,5000,userLog) 
+}
+}
 
-    function loginSuccess(AnswerSuccess){
-        //console.log(AnswerSuccess)
 
-    /*  conversation.innerHTML +=
-        `
-        <li class="message">
-            ${message.value}
-        </li>
-        
-        `*/
 
-        log = setInterval(stayLogged,3000,userLog) 
+function loginError(AnswerError){
+    console.log(AnswerError)
+    if(AnswerError.response.status===400){
+        alert('Já existe um usuário com este nome, insira outro')
+        login()
     }
 }
 
 function loginStop(){
     clearInterval(log)
+    clearInterval(newMessages)
 }
 
 function stayLogged(userLog){
@@ -47,42 +50,49 @@ function stayCheck(stay){
 
 function stayError(stayError){
     console.log(stayError.response)
+    alert('Você foi desconectado')
+    login()
     //console.log('Errou')
 }
 
 
 
-function loginError(AnswerError){
-    console.log(AnswerError)
-    if(AnswerError.response.status===400){
-        alert('Já existe um usuário com este nome')
-        login()
-    }
-}
+
 
 
 /*--------------------------Get messages---------------*/
 
+function getMessages(){
+conversation.innerHTML=""
+//console.log('atualizou as msg')
 const getMessages = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages')
 
 getMessages.then(check)
+}
 
 function check(messages){
-    console.log(messages)
-    const from =messages.data[0].from
+    //console.log(messages)
+    /*const from =messages.data[0].from
     const to =messages.data[0].to
     const text =messages.data[0].text
     const time =messages.data[0].time
     const type =messages.data[0].type
-   console.log(from, to , text , time, type)
+   console.log(from, to , text , time, type)*/
    
- for(i=0;i<messages.data.length;i++){
+   //console.log(messages.data[messages.data.length-1])
+   last=messages.data[messages.data.length-1]
+   
+   console.log('primeiro last abaixo')
+   console.log(last)
+ 
+   for(i=0;i<messages.data.length;i++){
         
     const from =messages.data[i].from
     const to =messages.data[i].to
     const text =messages.data[i].text
     const time =messages.data[i].time
     const type =messages.data[i].type
+    
     
     if(type==='message'){
     
@@ -105,6 +115,9 @@ function check(messages){
         `
     }
     }
+
+    
+
 }
 
 /*`
@@ -113,6 +126,8 @@ function check(messages){
 </li>
 
 `*/
+
+
 
 function sendMessage(){
    
@@ -133,22 +148,18 @@ function sendMessage(){
         return;
     }
     
-    conversation.innerHTML +=
-    `
-    <li class="message">
-        ${message.value}
-    </li>
-    
-    `
+    const sendMessage = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages',{from: userLog, to:"todos",text: message.value, type:'message'})
     message.value="";
     
+    console.log(sendMessage.then())
 
 }
 
 
-
-
-
+function updateMessages(){
+    const getMessages = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages')
+    getMessages.then(update)
+}
 
 /*-------------Funcoes do bonus*/
 
