@@ -63,14 +63,16 @@ function stayError(stayError){
 /*--------------------------Get messages---------------*/
 
 function getMessages(){
-conversation.innerHTML=""
+//conversation.innerHTML=""
 //console.log('atualizou as msg')
 const getMessages = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages')
 
 getMessages.then(check)
+
 }
 
 function check(messages){
+    conversation.innerHTML=""
     //console.log(messages)
     /*const from =messages.data[0].from
     const to =messages.data[0].to
@@ -80,10 +82,6 @@ function check(messages){
    console.log(from, to , text , time, type)*/
    
    //console.log(messages.data[messages.data.length-1])
-   last=messages.data[messages.data.length-1]
-   
-   console.log('primeiro last abaixo')
-   console.log(last)
  
    for(i=0;i<messages.data.length;i++){
         
@@ -115,10 +113,18 @@ function check(messages){
         `
     }
     }
+   conversation.scrollTop =conversation.scrollHeight;   
+    //document.documentElement.scrollTop = document.documentElement.scrollHeight;
+}
 
+
+
+
+ 
     
 
-}
+
+
 
 /*`
 <li class="message">
@@ -156,10 +162,7 @@ function sendMessage(){
 }
 
 
-function updateMessages(){
-    const getMessages = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages')
-    getMessages.then(update)
-}
+
 
 /*-------------Funcoes do bonus*/
 
