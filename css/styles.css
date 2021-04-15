@@ -1,10 +1,10 @@
 @font-face {
-    font-family:Toboto;
+    font-family:Roboto;
     src: url(../fonts/Roboto-Regular.ttf);
 }
 
 body{
-    font-family: Toboto;
+    font-family: Roboto;
 }
 
 
@@ -136,7 +136,7 @@ body{
 .message.action{
     background-color: #DCDCDC;
 }
-
+/*-----------------------------------Sidebar_-------------------*/
 .sidebar-container{
     width: 375px;
     height: 100vh;
@@ -145,7 +145,7 @@ body{
     top: 0;
     bottom: 0;
     z-index: 2;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0);
     
 }
 
@@ -159,6 +159,15 @@ body{
     to{transform: translateX(0);}
 }
 
+.black-bar{
+    width: 115px;
+    height: 100vh;
+    
+    position: absolute;
+    left: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+
 .sidebar{
     height: 100vh;
     width: 260px;
@@ -168,8 +177,61 @@ body{
     
 }
 
+.sidebar h1{
+    border: 1px solid red;
+    width: 70%;
+    font-weight: bold;
+    font-family: Roboto;
+}
 
+.sidebar .text-h1{
+    width:100%;
+    height: 84px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.participants{
+    height: 200px;
+    width: 100%;
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+}
+
+.participant-option{
+    width: 200px;
+    border: 1px solid blue;
+    display: flex;
+    justify-content: space-between;
+    overflow-wrap: break-word;
+}
+
+.icon{
+    width: 25px;
+    height: 25px;
+    
+}
+
+.icon-check{
+    opacity: 0;
+}
+
+.icon-check.selected{
+    opacity: 1;
+    color: green;
+    border-radius: 50%;
+}
+
+.participant-option span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
 
 
 

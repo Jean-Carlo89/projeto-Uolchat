@@ -1,10 +1,11 @@
 let conversation = document.querySelector('ul');
-let message = document.querySelector('input')
-let log, newMessages,last;
-let userLog
+const message = document.querySelector('input')
+let log, newMessages;
+let userLog;
+let recipient='todos';
 /*----------------Entrando na sala----------------*/
 
-
+//login()
 function login(){
 
 userLog = prompt('Qual é o seu nome?')
@@ -45,7 +46,7 @@ function stayLogged(userLog){
 
 function stayCheck(stay){
    // console.log(stay)
-    console.log('ainda on')
+    //console.log('ainda on')
 }
 
 function stayError(stayError){
@@ -134,7 +135,7 @@ function check(messages){
 `*/
 
 
-
+/*----------------------------------------Enviar mensages-----*/
 function sendMessage(){
    
     /* const conversation = document.querySelector('ul');
@@ -154,7 +155,7 @@ function sendMessage(){
         return;
     }
     
-    const sendMessage = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages',{from: userLog, to:"todos",text: message.value, type:'message'})
+    const sendMessage = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages',{from: userLog, to:recipient,text: message.value, type:'message'})
     message.value="";
     
     console.log(sendMessage.then())
@@ -183,6 +184,57 @@ function openParticipants(){
 }
 
 function goBack(page){
-   page.classList.toggle('hidden')
-   page.classList.toggle('move')
+    //console.log('click')
+   // console.log(page.parentNode)
+    page.parentNode.classList.toggle('hidden')
+   page.parentNode.classList.toggle('move')
+}
+
+
+
+
+function getMessageName(clickedParticipant){
+    const removeSelected = document.querySelector('.participant-option .icon-check.selected')
+    //console.log(removeSelected)
+    if(removeSelected===null){
+
+    }else{
+    removeSelected.classList.remove('selected')
+    }
+    clickedParticipant.children[1].classList.add('selected')
+    //console.log(clickedParticipant.children)
+   // console.log(clickedParticipant.children[0].innerText)
+   const personName = clickedParticipant.children[0].innerText
+   //console.log(personName)
+   recipient=personName
+   //clickedParticipant.children[0].children[0].setAttribute('selected','selected')
+   //console.log(clickedParticipant.children[1])
+   
+}
+
+function getListOfPeople(){
+    const participants = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants')
+    participants.then(completeList)
+}
+
+function completeList(listOfPeople){
+   // console.log(listOfPeople)
+    //console.log(listOfPeople.data)
+    //console.log(listOfPeople.data[0].name)
+    const peopleUl=document.querySelector('.participants')
+    //console.log(peopleUl)
+
+    peopleUl.innerHTML =
+    `<li class="participant-option" onclick="getMessageName(this)">
+            <span> <ion-icon name="people-sharp" class="icon"></ion-icon>  Todos</span> <ion-icon name="checkmark-circle-outline" class="icon icon-check selected"></ion-icon>
+    </li>
+    `
+
+    for(let i =0;i<listOfPeople.data.length;i++){
+        peopleUl.innerHTML +=`
+        <li class="participant-option" onclick="getMessageName(this)">
+            <span> <ion-icon name="people-sharp" class="icon"></ion-icon>  ${listOfPeople.data[i].name}</span> <ion-icon name="checkmark-circle-outline" class="icon icon-check"></ion-icon>
+        </li>
+        `
+    }
 }
