@@ -45,7 +45,7 @@ function stayLogged(userLog){
 
 function stayCheck(stay){
    // console.log(stay)
-   // console.log('ainda on')
+    console.log('ainda on')
 }
 
 function stayError(stayError){
@@ -107,7 +107,7 @@ function check(messages){
         conversation.innerHTML +=
         `
         <li class="message action">
-           (${time})&nbsp <strong>${from}</strong> &nbsp ${text}
+        <p>(${time})&nbsp <strong>${from}</strong> &nbsp ${text}</p>
         </li>
         
         `
@@ -169,17 +169,20 @@ function sendMessage(){
 function openParticipants(){
     
     const body = document.querySelector('body')
-    body.innerHTML +=`
+    /*body.innerHTML +=`
     <div class="sidebar-container move" onclick="goBack(this)">
             <div class="sidebar">
 
             </div>
     </div>
-    `
- const sidebar = document.querySelector('.sidebar-container')
-   
+    `*/
+    const sidebar = document.querySelector('.sidebar-container')
+    sidebar.classList.toggle('hidden')
+    sidebar.classList.toggle('move')
+    
 }
 
 function goBack(page){
-   page.remove()
+   page.classList.toggle('hidden')
+   page.classList.toggle('move')
 }

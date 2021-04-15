@@ -64,6 +64,9 @@ body{
 .conversation-box span{
     overflow-wrap: normal;
 }
+.conversation-box p{
+    overflow-wrap: break-word;
+}
 
 /*---------------------------------------------Footer--------------------------*/
 .container-footer{
@@ -104,6 +107,10 @@ body{
 .footer .paperplane{
     width: 26px;
     height: 26px;
+}
+
+.hidden{
+    display: none;
 }
 
 /*------------------------------------JAvascript inserts messages*/
