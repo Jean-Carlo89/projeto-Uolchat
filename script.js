@@ -6,7 +6,7 @@ let recipient='todos';
 let type = 'message'
 /*----------------Entrando na sala----------------*/
 
-//login()
+login()
 function login(){
 
 userLog = prompt('Qual é o seu nome?')
@@ -16,14 +16,16 @@ enter.then(loginSuccess,userLog)
 
 enter.catch(loginError)
 
+
+}
+
 function loginSuccess(AnswerSuccess){
     getMessages()
+    getListOfPeople()
+    setInterval(getListOfPeople,10000)
     newMessages = setInterval(getMessages,3000)
     log = setInterval(stayLogged,5000,userLog) 
 }
-}
-
-
 
 function loginError(AnswerError){
     console.log(AnswerError)
@@ -53,7 +55,8 @@ function stayCheck(stay){
 function stayError(stayError){
     console.log(stayError.response)
     alert('Você foi desconectado')
-    login()
+    window.location.reload()
+    //login()
     //console.log('Errou')
 }
 
@@ -175,9 +178,18 @@ function sendMessage(){
     recipient='todos';
      type = 'message'
 
+     sendMessage.then(refreshMessages)
+     sendMessage.catch(reloadPage)
+
 }
 
-
+function refreshMessages(messageSent){
+    getMessages()
+}
+function reloadPage(messageNotSent){
+   console.log('erro no envio da msg')
+    window.location.reload()
+}
 
 
 /*-------------Funcoes do bonus*/
@@ -253,6 +265,8 @@ function completeList(listOfPeople){
         </li>
         `
     }
+
+    //console.log('lista att')
 }
 
 function getVisibilityType(clickedVisibility){
@@ -279,6 +293,9 @@ function getVisibilityType(clickedVisibility){
    console.log(visibility)
    
    type=visibility
+
+
+   
    //console.log(type)
 
 
