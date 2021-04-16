@@ -192,7 +192,7 @@ body{
     justify-content: center;
 }
 
-.participants{
+.participants,.visibility{
     height: 200px;
     width: 100%;
     border: 1px solid red;
@@ -202,7 +202,7 @@ body{
     overflow: auto;
 }
 
-.participant-option{
+.participant-option,.visibility-option{
     width: 200px;
     border: 1px solid blue;
     display: flex;

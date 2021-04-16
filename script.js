@@ -3,6 +3,7 @@ const message = document.querySelector('input')
 let log, newMessages;
 let userLog;
 let recipient='todos';
+let type = 'message'
 /*----------------Entrando na sala----------------*/
 
 //login()
@@ -113,6 +114,16 @@ function check(messages){
         
         `
     }
+
+    if(type==='private_message' && (from===userLog || to===userLog)){
+        conversation.innerHTML +=
+        `
+        <li class="message private">
+           <p><span>(${time}) &nbsp <strong>${from}</strong> &nbsp reservadamente &nbsp para &nbsp <strong>${to}</strong>:</span> &nbsp ${text}</p>
+        </li>
+        
+        `
+    }
     }
    conversation.scrollTop =conversation.scrollHeight;   
     //document.documentElement.scrollTop = document.documentElement.scrollHeight;
@@ -148,17 +159,21 @@ function sendMessage(){
     
     `
     message="";*/
-
+    const removeAllChecks = document.querySelectorAll('.icon-check.selected')
     
+    for(let i=0;i<removeAllChecks.length;i++){
+        removeAllChecks[i].classList.remove('selected')
+    }
     
     if(message.value===""){
         return;
     }
     
-    const sendMessage = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages',{from: userLog, to:recipient,text: message.value, type:'message'})
+    const sendMessage = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages',{from: userLog, to:recipient,text: message.value, type:type})
     message.value="";
     
-    console.log(sendMessage.then())
+    recipient='todos';
+     type = 'message'
 
 }
 
@@ -188,6 +203,7 @@ function goBack(page){
    // console.log(page.parentNode)
     page.parentNode.classList.toggle('hidden')
    page.parentNode.classList.toggle('move')
+   
 }
 
 
@@ -237,4 +253,36 @@ function completeList(listOfPeople){
         </li>
         `
     }
+}
+
+function getVisibilityType(clickedVisibility){
+    const removeSelected = document.querySelector('.visibility-option .icon-check.selected')
+    //console.log(removeSelected)
+    if(removeSelected===null){
+
+    }else{
+    removeSelected.classList.remove('selected')
+    }
+    clickedVisibility.children[1].classList.add('selected')
+    //console.log(clickedVisibility.children)
+   // console.log(clickedVisibility.children[0].innerText)
+   let visibility = clickedVisibility.children[0].innerText
+   //console.log(visibility)
+    //console.log(typeof(visibility))
+   if(visibility=='Reservadamente'){
+       visibility='private_message'
+   }
+
+   if(visibility=='Público'){
+        visibility='message'
+   }
+   console.log(visibility)
+   
+   type=visibility
+   //console.log(type)
+
+
+  // type=visibility
+   //clickedVisibility.children[0].children[0].setAttribute('selected','selected')
+   //console.log(clickedVisibility.children[1])
 }
